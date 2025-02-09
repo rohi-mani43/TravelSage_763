@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Transaction History{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h3>Transaction History</h3>
+    </div>
+    <div class="card-body">
+        {% if transactions %}
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Transaction Hash</th>
+                            <th>Amount (ETH)</th>
+                            <th>Status</th>
+                            <th>Destination</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for tx in transactions %}
+                        <tr>
+                            <td>{{ tx.timestamp }}</td>
+                            <td>
+                                {% if tx.transaction_hash %}
+                                <a href="https://sepolia.etherscan.io/tx/{{ tx.transaction_hash }}" target="_blank">
+                                    {{ tx.transaction_hash[:10] }}...
+                                </a>
+                                {% else %}
+                                N/A
+                                {% endif %}
+                            </td>
+                            <td>{{ tx.amount }}</td>
+                            <td>
+                                <span class="badge {% if tx.status == 'completed' %}bg-success{% else %}bg-warning{% endif %}">
+                                    {{ tx.status }}
+                                </span>
+                            </td>
+                            <td>{{ tx.destination or 'N/A' }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="text-center">No transactions found.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

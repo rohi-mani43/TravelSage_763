@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="jumbotron text-center">
+    <div class="hero-section">
+        <h1>Welcome to <span class="highlight">Travel Sage</span></h1>
+        <p>Plan your perfect trip with <strong>AI-powered recommendations</strong> and secure <strong>blockchain payments</strong>.</p>
+    
+        {% if 'user_id' not in session %}
+        <div class="hero-buttons">
+            <a href="{{ url_for('login') }}" class="btn btn-primary">Login</a>
+            <a href="{{ url_for('register') }}" class="btn btn-secondary">Register</a>
+        </div>
+        {% else %}
+        <div class="hero-buttons">
+            <a href="{{ url_for('layout') }}" class="btn btn-primary">Plan Your Trip</a>
+        </div>
+        {% endif %}
+    </div>
+    
+    
+    <div class="features mt-5">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">AI-Powered Planning</h5>
+                        <p class="card-text">Get personalized travel recommendations based on your interests and budget.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Secure Payments</h5>
+                        <p class="card-text">Make secure payments using blockchain technology.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Real-time Weather</h5>
+                        <p class="card-text">Get current weather information for your destination.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
